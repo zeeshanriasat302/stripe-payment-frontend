@@ -4,30 +4,34 @@ import StripeCheckout from "react-stripe-checkout";
 import { useState } from "react";
 
 function App() {
+  console.log("process.env.REACT_APP_STRIPE_SECRET_KEY --- ", process.env.REACT_APP_STRIPE_SECRET_KEY)
   const [product, setProduct] = useState({ 
-    name: "React from FB", 
+    influencer_id: 3,
+    brand_id: 1,
+    package_id: 1, 
+    content_type: "instagram",
     price: 10,
-    productBy: "facebook"
+    productBy: "instagram"
   });
 
   const makePayment = (token) => {
+    console.log('Token: ', token); // Log the token
     const body = {
       token,
       product
     }
-
     const headers = {
       "Content-Type": "application/json"
     }
-    return fetch(`http://localhost:5000/payment`, {
+    return fetch(`http://localhost:5000/api/payment/stripeCheckout`, {
       method: "POST",
       headers,
       body: JSON.stringify(body)
     }).then(
       response => {
-        console.log("RESPONSE: ", response);
+        console.log("RESPONSE:  --->", response);
         const {status} = response;
-        console.log("STATUS ",status);
+        console.log("STATUS --->  ",status);
       }
     ).catch(error => console.log("error --> ", error))
   }
