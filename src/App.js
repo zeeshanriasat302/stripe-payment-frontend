@@ -4,7 +4,6 @@ import StripeCheckout from "react-stripe-checkout";
 import { useState } from "react";
 
 function App() {
-  console.log("process.env.REACT_APP_STRIPE_SECRET_KEY --- ", process.env.REACT_APP_STRIPE_SECRET_KEY)
   const [product, setProduct] = useState({ 
     influencer_id: 3,
     brand_id: 1,
@@ -49,7 +48,7 @@ function App() {
           Learn React
         </a>
         <StripeCheckout 
-          stripeKey={process.env.REACT_APP_STRIPE_SECRET_KEY}
+          stripeKey={process.env.REACT_APP_STRIPE_Public_KEY}
           token={makePayment}
           name="By React"
           amount={product.price * 100}
